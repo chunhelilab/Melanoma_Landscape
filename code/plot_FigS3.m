@@ -1,11 +1,11 @@
 
 cnt=1;
-U=1;N=2;H=5;T=3;M=4;
-ss={'U','N','T','M','H'};
-load('../data_save/ycell.mat')
+%U=1;N=2;H=5;T=3;M=4;
+%ss={'U','N','T','M','H'};
+%load('../data_save/ycell.mat')
 %U=1;N=2;T=4;M=3;
-%ss={'U','N','M','T'};
-%load data/ycell.mat;
+ss={'U','N','M','T'};
+load('../data_save/ycell.mat')
 for i=1:size(ycell,1)
     for j=1:size(ycell,2)
 da{i,j}(:,:)=ycell{i,j}(:,:);

@@ -35,7 +35,7 @@ for i=1:cycle_index
     x=inf*ones(1,Num);
     while norm( x(end,:)-newx(end,:) ,2 )>1e-7
         x=newx;
-        [t,newx]=ode45(@(t,x)Melanoma(t,x,par,signal),[0,1],x(end,:));
+        [t,newx]=ode23(@(t,x)Melanoma(t,x,par,signal),[0,1],x(end,:));
     end
     xx(i,:)=newx(end,:);
 end
@@ -48,7 +48,6 @@ end
          end
      end
  end
- 
 
  ssn=5;
 weight=zeros(1,ssn);
@@ -59,10 +58,10 @@ g_ss=zeros(Num,1);
 for ig=1:NN(2)
   gt=1;
     for t=1:size(g_ss,2)-1
-	if ismember(round(YJ(1,ig)),round(x_ss(1,t))) &&ismember(round(YJ(2,ig)),round(x_ss(2,t))) && ismember(round(YJ(3,ig)),round(x_ss(3,t))) && ismember(round(YJ(4,ig)),round(x_ss(4,t)))&&ismember(round(YJ(5,ig)),round(x_ss(5,t))) && ismember(round(YJ(6,ig)),round(x_ss(6,t))) && ismember(round(YJ(7,ig)),round(x_ss(7,t))) &&ismember(round(YJ(8,ig)),round(x_ss(8,t))) && ismember(round(YJ(9,ig)),round(x_ss(9,t))) && ismember(round(YJ(10,ig)),round(x_ss(10,t)))&& ismember(round(YJ(11,ig)),round(x_ss(11,t)))&& ismember(round(YJ(12,ig)),round(x_ss(12,t))) && ismember(round(YJ(13,ig)),round(x_ss(13,t))) && ismember(round(YJ(14,ig)),round(x_ss(14,t))) && ismember(round(YJ(15,ig)),round(x_ss(15,t))) && ismember(round(YJ(16,ig)),round(x_ss(16,t)))&& ismember(round(YJ(17,ig)),round(x_ss(17,t)))
+	if ismember(round(YJ(4,ig)),round(x_ss(4,t))) &&ismember(round(YJ(13,ig)),round(x_ss(13,t))) && ismember(round(YJ(3,ig)),round(x_ss(3,t))) && ismember(round(YJ(1,ig)),round(x_ss(1,t)))&&ismember(round(YJ(5,ig)),round(x_ss(5,t))) && ismember(round(YJ(6,ig)),round(x_ss(6,t))) && ismember(round(YJ(7,ig)),round(x_ss(7,t))) &&ismember(round(YJ(8,ig)),round(x_ss(8,t))) && ismember(round(YJ(9,ig)),round(x_ss(9,t))) && ismember(round(YJ(10,ig)),round(x_ss(10,t)))&& ismember(round(YJ(11,ig)),round(x_ss(11,t)))&& ismember(round(YJ(12,ig)),round(x_ss(12,t))) && ismember(round(YJ(2,ig)),round(x_ss(2,t))) && ismember(round(YJ(14,ig)),round(x_ss(14,t))) && ismember(round(YJ(15,ig)),round(x_ss(15,t))) && ismember(round(YJ(16,ig)),round(x_ss(16,t)))&& ismember(round(YJ(17,ig)),round(x_ss(17,t)))
             gt=0;
             break
-        end
+    end
     end
     if gt==1
         gt

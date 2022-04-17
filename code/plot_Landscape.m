@@ -3,7 +3,7 @@
 %citation:Kang, Xin, and Chunhe Li. 
 %"A Dimension Reduction Approach for Energy Landscape: Identifying Intermediate States in Metabolism‐EMT Network." 
 %Advanced Science 8.10 (2021): 2003133.
-cycle_index=500;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
+cycle_index=1000;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
 path='../params/';
 %nst='pentastable_params.csv';
 %nst='Parameter sets.csv';
@@ -106,10 +106,10 @@ for i=1:index
    %sigma0_pca{i}=sig;
 end
 a=4000;
-%sig_set=[
-%   10.98292918284943  -0.443959748363383;
-%  -0.443959748363383   0.085882886193189];
-remake_sig=sigma0_pca{4}*a;
+%remake_sig=sigma0_pca{4}*a;
+remake_sig=[
+   6.58292918284943  -0.443959748363383;
+  -0.443959748363383   0.155882886193189];
 sigma0_pca{4}=remake_sig;
 sigma0_pca{1}=remake_sig;
 sigma0_pca{3}=remake_sig;
@@ -117,7 +117,7 @@ sigma0_pca{2}=remake_sig;
 
 p1_max=60;
 p1_min=-61;
-p2_max=6;
+p2_max=10;
 p2_min=-8;
 %}
 %{
@@ -172,9 +172,9 @@ end
  %lab={'U','N','T','P','H'};
  %lab={'U','N','T','M'};
 %lab={'T','P','H'};
-%lab={'U','N','M','T'};%xx_4_2
+lab={'N','U','M','T'};%xx_4_2
 % lab={'N','U','M','T'}%xx_4_7
-lab={'U','N','T','M'}%xx_4_18
+%lab={'U','N','T','M'}%xx_4_18
 
 %{
 %Plot the grid
