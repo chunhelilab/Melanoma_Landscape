@@ -1,11 +1,12 @@
 %数据准备
 %Fig6A need Action to para
 %Action: b1:S->G1 ,b2 G1->S.a1:G1->G0,a2:G0->G1.c1:S->G0.c2:G0->S
+
 daction={};
 a=zeros(7,2);
 b=zeros(7,2);
 c=zeros(7,2);
-load('/results/action_5_1.mat');
+load('../data_save/action.mat');
 p_action=action;
 daction{1}=p_action;
 
@@ -41,9 +42,9 @@ a2=[daction{1}(3,4) daction{2}(3,4) daction{3}(3,4) daction{4}(3,4) daction{5}(3
 c1=[daction{1}(4,1) daction{2}(3,1) daction{3}(3,1) daction{4}(3,1) daction{5}(3,1) daction{6}(3,1) daction{7}(3,1)];
 c2=[daction{1}(1,4) daction{2}(1,3) daction{3}(1,3) daction{4}(1,3) daction{5}(1,3) daction{6}(1,3) daction{7}(1,3)];
 %}
-%
+%plot for 5 stable states, if the columns of action matrix are less than 5, there will be error. 
 for i=1:6
-    rs=strcat('action_KO_SMAD3_MITF_t',num2str(i),'.mat');
+    rs=strcat('../figure/action_KO_SMAD3_MITF_t',num2str(i),'.mat');
     %xs=strcat('xx_KO_SMAD3_MITF_',num2str(i),'.mat');
     load(rs);
     %load(xs);   

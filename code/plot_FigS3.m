@@ -2,10 +2,10 @@
 cnt=1;
 U=1;N=2;H=5;T=3;M=4;
 ss={'U','N','T','M','H'};
-load('C:\Aczh work place\5_paper\M_landscape_plot\data_save\ycell_5_1.mat')
+load('../data_save/ycell.mat')
 %U=1;N=2;T=4;M=3;
 %ss={'U','N','M','T'};
-%load tetra_ss/ycell.mat;
+%load data/ycell.mat;
 for i=1:size(ycell,1)
     for j=1:size(ycell,2)
 da{i,j}(:,:)=ycell{i,j}(:,:);

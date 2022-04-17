@@ -30,19 +30,16 @@ for i=1:cycle_index
         i
     end
     x0=3000*rand(1,Num);
-    [t,x]=ode23(@(t,x)MESC(t,x,par,signal),[0,1000],x0);
+    [t,x]=ode23(@(t,x)Melanoma(t,x,par,signal),[0,1000],x0);
     newx=x(end,:);
     x=inf*ones(1,Num);
     while norm( x(end,:)-newx(end,:) ,2 )>1e-7
         x=newx;
-        [t,newx]=ode45(@(t,x)MESC(t,x,par,signal),[0,1],x(end,:));
+        [t,newx]=ode45(@(t,x)Melanoma(t,x,par,signal),[0,1],x(end,:));
     end
     xx(i,:)=newx(end,:);
 end
 %save('xx_5_2','xx');
-%}
-%load('data_save/xx_p_p_5_1.mat')
-%load('xx_4_7.mat')
 %%Finding the stable points
  for q=1:(cycle_index-1)
      for p=(q+1):cycle_index
@@ -62,11 +59,11 @@ g_ss=zeros(Num,1);
 for ig=1:NN(2)
   gt=1;
     for t=1:size(g_ss,2)-1
-	if ismember(round(YJ(1,ig)),round(x_ss(1,t)))  &&ismember(round(YJ(2,ig)),round(x_ss(2,t))) && ismember(round(YJ(3,ig)),round(x_ss(3,t))) && ismember(round(YJ(4,ig)),round(x_ss(4,t)))&&ismember(round(YJ(5,ig)),round(x_ss(5,t))) && ismember(round(YJ(6,ig)),round(x_ss(6,t))) && ismember(round(YJ(7,ig)),round(x_ss(7,t))) &&ismember(round(YJ(8,ig)),round(x_ss(8,t))) && ismember(round(YJ(9,ig)),round(x_ss(9,t))) && ismember(round(YJ(10,ig)),round(x_ss(10,t)))&& ismember(round(YJ(11,ig)),round(x_ss(11,t)))&& ismember(round(YJ(12,ig)),round(x_ss(12,t))) && ismember(round(YJ(13,ig)),round(x_ss(13,t))) && ismember(round(YJ(14,ig)),round(x_ss(14,t))) && ismember(round(YJ(15,ig)),round(x_ss(15,t))) && ismember(round(YJ(16,ig)),round(x_ss(16,t)))&& ismember(round(YJ(17,ig)),round(x_ss(17,t)))
+	if ismember(round(YJ(1,ig)),round(x_ss(1,t))) &&ismember(round(YJ(2,ig)),round(x_ss(2,t))) && ismember(round(YJ(3,ig)),round(x_ss(3,t))) && ismember(round(YJ(4,ig)),round(x_ss(4,t)))&&ismember(round(YJ(5,ig)),round(x_ss(5,t))) && ismember(round(YJ(6,ig)),round(x_ss(6,t))) && ismember(round(YJ(7,ig)),round(x_ss(7,t))) &&ismember(round(YJ(8,ig)),round(x_ss(8,t))) && ismember(round(YJ(9,ig)),round(x_ss(9,t))) && ismember(round(YJ(10,ig)),round(x_ss(10,t)))&& ismember(round(YJ(11,ig)),round(x_ss(11,t)))&& ismember(round(YJ(12,ig)),round(x_ss(12,t))) && ismember(round(YJ(13,ig)),round(x_ss(13,t))) && ismember(round(YJ(14,ig)),round(x_ss(14,t))) && ismember(round(YJ(15,ig)),round(x_ss(15,t))) && ismember(round(YJ(16,ig)),round(x_ss(16,t)))&& ismember(round(YJ(17,ig)),round(x_ss(17,t)))
             gt=0;
             break
         end
-    end      
+    end
     if gt==1
         gt
        g_ss(:,temp)=YJ(:,ig);
@@ -79,8 +76,7 @@ for ig=1:NN(2)
 end
 
 stable_point=x_ss'
-save('mu_new_4_1','stable_point')
-
+save('mu','stable_point')
 n=zeros(1,2);
 sigma=zeros(size(xx,1),size(xx,2)^2);
 for i=1:size(stable_point,1)
@@ -144,8 +140,6 @@ for i=1:feasi_n
 %         (i-1)*feasi_n+j
     end
 end
-%save('ycell_4_9','ycell');
-%save('action_4_9','action');
 end
 
 

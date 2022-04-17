@@ -1,4 +1,4 @@
-addpath('C:\Aczh work place\5_paper\M_landscape_plot\penta_ss');
+addpath('..\figure');
 h{1}=openfig('xx_5_1.fig');
 h{2}=openfig('xx_5_1_kd_SMAD3.fig');
 h{3}=openfig('xx_5_1_kd_MITF.fig');

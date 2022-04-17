@@ -1,10 +1,13 @@
-function dx=Melanoma(t,x,par,signal)
-AHR=x(1,:);NFIC=x(2,:);FOS=x(3,:);KLF4=x(4,:);FOXF1=x(5,:);JUN=x(6,:);SMAD3=x(7,:);MITF=x(8,:);
-SMAD4=x(9,:);MAFB=x(10,:);NR3C1=x(11,:);NR2F1=x(12,:);STAT5A=x(13,:);
-TBX3=x(14,:);TFE3=x(15,:);ETV5=x(16,:);TFAP2A=x(17,:);
+function [xx]=calculate_sigma(x,par,signal,kk,d)
 
+%par is parameters
+%d is diffusion coefficient
+%the xx is the vector of sigma which is Row Major Order
+%%lead in the parameters
 v=num2cell(par(1,:));
 [Prod_of_AHR	Prod_of_NFIC	Prod_of_FOS	Prod_of_KLF4	Prod_of_FOXF1	Prod_of_JUN	Prod_of_SMAD3	Prod_of_MITF	Prod_of_SMAD4	Prod_of_MAFB	Prod_of_NR3C1	Prod_of_NR2F1	Prod_of_STAT5A	Prod_of_TBX3	Prod_of_TFE3	Prod_of_ETV5	Prod_of_TFAP2A	Deg_of_AHR	Deg_of_NFIC	Deg_of_FOS	Deg_of_KLF4	Deg_of_FOXF1	Deg_of_JUN	Deg_of_SMAD3	Deg_of_MITF	Deg_of_SMAD4	Deg_of_MAFB	Deg_of_NR3C1	Deg_of_NR2F1	Deg_of_STAT5A	Deg_of_TBX3	Deg_of_TFE3	Deg_of_ETV5	Deg_of_TFAP2A	Trd_of_AHRToAHR	Num_of_AHRToAHR	Inh_of_AHRToAHR	Trd_of_NFICToAHR	Num_of_NFICToAHR	Act_of_NFICToAHR	Trd_of_FOSToAHR	Num_of_FOSToAHR	Inh_of_FOSToAHR	Trd_of_NR3C1ToNFIC	Num_of_NR3C1ToNFIC	Act_of_NR3C1ToNFIC	Trd_of_MITFToNFIC	Num_of_MITFToNFIC	Inh_of_MITFToNFIC	Trd_of_AHRToFOS	Num_of_AHRToFOS	Inh_of_AHRToFOS	Trd_of_NR3C1ToFOS	Num_of_NR3C1ToFOS	Inh_of_NR3C1ToFOS	Trd_of_SMAD3ToFOS	Num_of_SMAD3ToFOS	Act_of_SMAD3ToFOS	Trd_of_NFICToFOS	Num_of_NFICToFOS	Inh_of_NFICToFOS	Trd_of_MITFToFOS	Num_of_MITFToFOS	Act_of_MITFToFOS	Trd_of_SMAD4ToFOS	Num_of_SMAD4ToFOS	Act_of_SMAD4ToFOS	Trd_of_FOSToFOS	Num_of_FOSToFOS	Inh_of_FOSToFOS	Trd_of_AHRToKLF4	Num_of_AHRToKLF4	Act_of_AHRToKLF4	Trd_of_JUNToKLF4	Num_of_JUNToKLF4	Act_of_JUNToKLF4	Trd_of_NR3C1ToKLF4	Num_of_NR3C1ToKLF4	Act_of_NR3C1ToKLF4	Trd_of_SMAD3ToKLF4	Num_of_SMAD3ToKLF4	Act_of_SMAD3ToKLF4	Trd_of_TBX3ToKLF4	Num_of_TBX3ToKLF4	Act_of_TBX3ToKLF4	Trd_of_MITFToKLF4	Num_of_MITFToKLF4	Inh_of_MITFToKLF4	Trd_of_KLF4ToFOXF1	Num_of_KLF4ToFOXF1	Act_of_KLF4ToFOXF1	Trd_of_JUNToJUN	Num_of_JUNToJUN	Act_of_JUNToJUN	Trd_of_SMAD3ToJUN	Num_of_SMAD3ToJUN	Act_of_SMAD3ToJUN	Trd_of_KLF4ToJUN	Num_of_KLF4ToJUN	Act_of_KLF4ToJUN	Trd_of_MITFToJUN	Num_of_MITFToJUN	Inh_of_MITFToJUN	Trd_of_SMAD4ToJUN	Num_of_SMAD4ToJUN	Act_of_SMAD4ToJUN	Trd_of_AHRToSMAD3	Num_of_AHRToSMAD3	Act_of_AHRToSMAD3	Trd_of_JUNToSMAD3	Num_of_JUNToSMAD3	Act_of_JUNToSMAD3	Trd_of_NR3C1ToSMAD3	Num_of_NR3C1ToSMAD3	Act_of_NR3C1ToSMAD3	Trd_of_NFICToSMAD3	Num_of_NFICToSMAD3	Act_of_NFICToSMAD3	Trd_of_FOSToSMAD3	Num_of_FOSToSMAD3	Inh_of_FOSToSMAD3	Trd_of_AHRToMITF	Num_of_AHRToMITF	Inh_of_AHRToMITF	Trd_of_JUNToMITF	Num_of_JUNToMITF	Inh_of_JUNToMITF	Trd_of_NR3C1ToMITF	Num_of_NR3C1ToMITF	Act_of_NR3C1ToMITF	Trd_of_SMAD3ToMITF	Num_of_SMAD3ToMITF	Inh_of_SMAD3ToMITF	Trd_of_KLF4ToMITF	Num_of_KLF4ToMITF	Inh_of_KLF4ToMITF	Trd_of_MITFToMITF	Num_of_MITFToMITF	Act_of_MITFToMITF	Trd_of_SMAD4ToMITF	Num_of_SMAD4ToMITF	Act_of_SMAD4ToMITF	Trd_of_NR3C1ToSMAD4	Num_of_NR3C1ToSMAD4	Inh_of_NR3C1ToSMAD4	Trd_of_MAFBToMAFB	Num_of_MAFBToMAFB	Act_of_MAFBToMAFB	Trd_of_NR3C1ToMAFB	Num_of_NR3C1ToMAFB	Act_of_NR3C1ToMAFB	Trd_of_AHRToNR3C1	Num_of_AHRToNR3C1	Act_of_AHRToNR3C1	Trd_of_JUNToNR3C1	Num_of_JUNToNR3C1	Act_of_JUNToNR3C1	Trd_of_SMAD3ToNR3C1	Num_of_SMAD3ToNR3C1	Act_of_SMAD3ToNR3C1	Trd_of_NFICToNR3C1	Num_of_NFICToNR3C1	Act_of_NFICToNR3C1	Trd_of_FOSToNR3C1	Num_of_FOSToNR3C1	Inh_of_FOSToNR3C1	Trd_of_NR3C1ToNR2F1	Num_of_NR3C1ToNR2F1	Act_of_NR3C1ToNR2F1	Trd_of_KLF4ToNR2F1	Num_of_KLF4ToNR2F1	Act_of_KLF4ToNR2F1	Trd_of_NFICToNR2F1	Num_of_NFICToNR2F1	Act_of_NFICToNR2F1	Trd_of_FOSToNR2F1	Num_of_FOSToNR2F1	Inh_of_FOSToNR2F1	Trd_of_STAT5AToSTAT5A	Num_of_STAT5AToSTAT5A	Act_of_STAT5AToSTAT5A	Trd_of_MITFToSTAT5A	Num_of_MITFToSTAT5A	Act_of_MITFToSTAT5A	Trd_of_SMAD3ToTBX3	Num_of_SMAD3ToTBX3	Act_of_SMAD3ToTBX3	Trd_of_TBX3ToTBX3	Num_of_TBX3ToTBX3	Act_of_TBX3ToTBX3	Trd_of_KLF4ToTBX3	Num_of_KLF4ToTBX3	Act_of_KLF4ToTBX3	Trd_of_NFICToTBX3	Num_of_NFICToTBX3	Act_of_NFICToTBX3	Trd_of_JUNToTFE3	Num_of_JUNToTFE3	Act_of_JUNToTFE3	Trd_of_TFE3ToTFE3	Num_of_TFE3ToTFE3	Inh_of_TFE3ToTFE3	Trd_of_NFICToTFE3	Num_of_NFICToTFE3	Act_of_NFICToTFE3	Trd_of_MITFToTFE3	Num_of_MITFToTFE3	Inh_of_MITFToTFE3	Trd_of_FOSToTFE3	Num_of_FOSToTFE3	Inh_of_FOSToTFE3	Trd_of_NR3C1ToETV5	Num_of_NR3C1ToETV5	Inh_of_NR3C1ToETV5	Trd_of_ETV5ToETV5	Num_of_ETV5ToETV5	Act_of_ETV5ToETV5	Trd_of_MITFToETV5	Num_of_MITFToETV5	Act_of_MITFToETV5	Trd_of_NR2F1ToTFAP2A	Num_of_NR2F1ToTFAP2A	Act_of_NR2F1ToTFAP2A	Trd_of_MITFToTFAP2A	Num_of_MITFToTFAP2A	Act_of_MITFToTFAP2A]=deal(v{:});
+
+syms AHR NFIC FOS KLF4 FOXF1 JUN SMAD3 MITF SMAD4 MAFB NR3C1 NR2F1 STAT5A TBX3 TFE3 ETV5  TFAP2A; 
 
 Hills_AHR_AHR=Inh_of_AHRToAHR+((1.0 -Inh_of_AHRToAHR) .* (Trd_of_AHRToAHR.^Num_of_AHRToAHR./(AHR.^Num_of_AHRToAHR +Trd_of_AHRToAHR.^Num_of_AHRToAHR )));
 Hills_NFIC_AHR=(Act_of_NFICToAHR+((1.0 -Act_of_NFICToAHR) .* (Trd_of_NFICToAHR.^Num_of_NFICToAHR./(NFIC.^Num_of_NFICToAHR +Trd_of_NFICToAHR.^Num_of_NFICToAHR ))))./Act_of_NFICToAHR;
@@ -70,7 +73,6 @@ Hills_ETV5_ETV5=(Act_of_ETV5ToETV5+((1.0 -Act_of_ETV5ToETV5) .* (Trd_of_ETV5ToET
 Hills_MITF_ETV5=(Act_of_MITFToETV5+((1.0 -Act_of_MITFToETV5) .* (Trd_of_MITFToETV5.^Num_of_MITFToETV5./(MITF.^Num_of_MITFToETV5 +Trd_of_MITFToETV5.^Num_of_MITFToETV5 ))))./Act_of_MITFToETV5;
 Hills_NR2F1_TFAP2A=(Act_of_NR2F1ToTFAP2A+((1.0 -Act_of_NR2F1ToTFAP2A) .* (Trd_of_NR2F1ToTFAP2A.^Num_of_NR2F1ToTFAP2A./(NR2F1.^Num_of_NR2F1ToTFAP2A +Trd_of_NR2F1ToTFAP2A.^Num_of_NR2F1ToTFAP2A ))))./Act_of_NR2F1ToTFAP2A;
 Hills_MITF_TFAP2A=(Act_of_MITFToTFAP2A+((1.0 -Act_of_MITFToTFAP2A) .* (Trd_of_MITFToTFAP2A.^Num_of_MITFToTFAP2A./(MITF.^Num_of_MITFToTFAP2A +Trd_of_MITFToTFAP2A.^Num_of_MITFToTFAP2A ))))./Act_of_MITFToTFAP2A;
-
 dx(1,:) = Prod_of_AHR.*Hills_AHR_AHR.*Hills_NFIC_AHR.*Hills_FOS_AHR - Deg_of_AHR.*AHR;
 dx(2,:) = Prod_of_NFIC.*Hills_NR3C1_NFIC.*Hills_MITF_NFIC - Deg_of_NFIC.*NFIC;
 dx(3,:) = Prod_of_FOS.*Hills_AHR_FOS.*Hills_NR3C1_FOS.*Hills_SMAD3_FOS.*Hills_NFIC_FOS.*Hills_MITF_FOS.*Hills_SMAD4_FOS.*Hills_FOS_FOS - Deg_of_FOS.*FOS;
@@ -88,6 +90,31 @@ dx(14,:) = Prod_of_TBX3.*Hills_SMAD3_TBX3.*Hills_TBX3_TBX3.*Hills_KLF4_TBX3.*Hil
 dx(15,:) = Prod_of_TFE3.*Hills_JUN_TFE3.*Hills_TFE3_TFE3.*Hills_NFIC_TFE3.*Hills_MITF_TFE3.*Hills_FOS_TFE3 - Deg_of_TFE3.*TFE3;
 dx(16,:) = Prod_of_ETV5.*Hills_NR3C1_ETV5.*Hills_ETV5_ETV5.*Hills_MITF_ETV5 - Deg_of_ETV5.*ETV5;
 dx(17,:) = Prod_of_TFAP2A.*Hills_NR2F1_TFAP2A.*Hills_MITF_TFAP2A - Deg_of_TFAP2A.*TFAP2A;
+Ajac=jacobian(dx,[AHR;NFIC;FOS;KLF4;FOXF1;JUN;SMAD3;MITF;SMAD4;MAFB;NR3C1;NR2F1;STAT5A;TBX3;TFE3;ETV5;TFAP2A]);
 
+Ajac=subs(Ajac,{'AHR','NFIC','FOS','KLF4','FOXF1','JUN','SMAD3','MITF','SMAD4','MAFB','NR3C1','NR2F1','STAT5A','TBX3','TFE3','ETV5','TFAP2A'},{x(1),x(2),x(3),x(4),x(5),x(6),x(7),x(8),x(9),x(10),x(11),x(12),x(13),x(14),x(15),x(16),x(17)});
+Ajac=double(Ajac);
+% A*sigma+sigma*A'+2D
+P=zeros(kk^2,kk^2);  %coefficient matrix
+%%the initial of coeffiicient matrix
+for i=0:(kk-1)
+    P(i*kk+1:i*kk+kk,i*kk+1:i*kk+kk)=P(i*kk+1:i*kk+kk,i*kk+1:i*kk+kk)+Ajac;
 end
 
+for m=0:kk-1
+    for i=1:kk
+        for j=1:kk
+            P(m*kk+i,(j-1)*kk+i)=P(m*kk+i,(j-1)*kk+i)+Ajac(m+1,j);
+        end
+    end
+end
+
+B=zeros(kk^2,1);
+for i=1:kk
+    B((i-1)*kk+i)=-2*d;
+end
+
+
+xx=P\B;
+
+end
