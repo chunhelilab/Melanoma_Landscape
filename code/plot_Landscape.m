@@ -3,7 +3,7 @@
 %citation:Kang, Xin, and Chunhe Li. 
 %"A Dimension Reduction Approach for Energy Landscape: Identifying Intermediate States in Metabolism‐EMT Network." 
 %Advanced Science 8.10 (2021): 2003133.
-%param_index 1-3 for tetra_landscape, param_index 4-5 for penta_landscape
+param_index=3;%param_index 1-3 for tetra_landscape, param_index 4-5 for penta_landscape
 cycle_index=0;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
 path='../params/';
 nst='Tables.csv';
@@ -23,7 +23,6 @@ Num=17;
 tic() %% Time
 label={'AHR','NFIC','FOS','KLF4','FOXF1','JUN','SMAD3','MITF','SMAD4','MAFB','NR3C1','NR2F1','STAT5A','TBX3','TFE3','ETV5','TFAP2A'};
 %%
-param_index=1;
 par1=par(param_index,:);
 [xx,sigma,n,ycell,action]=Solver(cycle_index,extra_conditions,par1,signal,d);
 
@@ -79,16 +78,16 @@ end
       case 1
         lab={'U','N','T','M'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=3;T=4;U=2;N=1;ss=[0,0,0,1];
+        M=1;T=2;U=3;N=4;H=0;ss=[0,0,0,1];sim=0;
         p1_max=60;p1_min=-61;p2_max=6;p2_min=-4;
-        remake_sig=[   4.58292918284943  -0.243959748363383;
-                       -0.243959748363383   0.055882886193189];
-        az=117;el=76;
+        remake_sig=[   4.58292918284943  -0.043959748363383;
+                       -0.043959748363383   0.005882886193189];
+        az=38;el=68;
      
      case 2
         lab={'M','T','N','U'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=1;T=2;U=4;N=3;ss=[1,0,0,0];
+        M=1;T=2;U=4;N=3;H=0;ss=[1,0,0,0];sim=1;
         p1_max=60;p1_min=-61;p2_max=10;p2_min=-18;
         remake_sig=[   4.58292918284943  -0.243959748363383;
                        -0.243959748363383   0.255882886193189];
@@ -96,16 +95,17 @@ end
       case 3
         lab={'T','U','N','M'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        M=4;T=1;U=2;N=3;H=0;ss=[0,0,0,1];sim=0;
         p1_max=60;p1_min=-61;p2_max=5;p2_min=-10;
-        remake_sig=[   4.58292918284943  -0.243959748363383;
-                       -0.243959748363383   0.055882886193189];
+        remake_sig=[   4.58292918284943  -0.043959748363383;
+                       -0.043959748363383   0.025882886193189];
         az=117;el=76;
         
         case 4
         lab={'T','U','N','M','H'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        M=4;T=1;U=2;N=3;H=5;
+        ss=[0,0,0,1];sim=0;
         p1_max=2500;p1_min=-800;p2_max=150;p2_min=-48;
         remake_sig=[   4.58292918284943  -0.243959748363383;
                        -0.243959748363383   0.055882886193189];
@@ -114,9 +114,9 @@ end
         case 5
          lab={'U','N','T','M','H'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        M=4;T=1;U=2;N=3;H=5;ss=[0,0,0,1];sim=0;
         p1_max=60;p1_min=-61;p2_max=5;p2_min=-10;
-        remake_sig=[   4.58292918284943  -0.243959748363383;
+        remake_sig=[   2.58292918284943  -0.243959748363383;
                        -0.243959748363383   0.055882886193189];
         az=117;el=76;
  end
@@ -147,31 +147,6 @@ sigma0_pca{2}=remake_sig;
 if param_index>3
     sigma0_pca{5}=remake_sig;
 end
-
-%{
-p1_max=60;
-p1_min=-61;
-p2_max=10;
-p2_min=-8;
-%}
-%{
-p1_max=2500;
-p1_min=-800;
-p2_max=150;
-p2_min=-48;
-%}
-%{
-p1_max=25;
-p1_min=-80;
-p2_max=3;
-p2_min=-23;
-%}
-%{
-p1_max=8;
-p1_min=-38;
-p2_max=4;
-p2_min=-27;
-%}
 y_max=[p1_max,p2_max]; %% Range of the landscape
 y_min=[p1_min,p2_min];
 step=(y_max-y_min)/1250; %% Length of the step
@@ -204,70 +179,62 @@ for i=1:size(n,1)
 end
  hold on
  
-
- %lab={'U','N','T','P','H'};
- %lab={'U','N','T','M'};
-%lab={'T','P','H'};
-% lab={'N','U','M','T'}%xx_4_7
-%lab={'U','N','T','M'}%xx_4_18
-%lab={'N','U','M','T'};%xx_4_2
-
-%{
-%Plot the grid
-for i=1:floor(size(a1,1)/4)
-    plot3(a1(4*i-1,:),a2(4*i-1,:),-log(max(P(4*i-1,:),10^-100)),'Color',[0.4 0.4 0.4],'LineWidth',0.01);
-end
-for i=1:floor(size(a1,2)/4)
-    plot3(a1(:,4*i-1),a2(:,4*i-1),-log(max(P(:,4*i-1),10^-100)),'Color',[0.4 0.4 0.4],'LineWidth',0.01);
-end
-%}
-%
 %Calculate the paths after dimension reduction
 k=size(ycell);
+  
+if sim>0
 for i=1:k(2)
     for j=1:k(2)
-  if (i==M && j==T)||(i==T&&j==N) ||(i==N&&j==U) %(i==2 && j==1)||(i==5&&j==1) %||(i==4&&j==3) %(i==1 && j==4)||(i==4&&j==2) ||(i==2&&j==3)
-
-y12=V'*log2(abs(ycell{i,j}));
-%y12=V'*ycell{i,j};
-a=y12(1,:);
-b=y12(2,:);
-c = polyfit(a, b, 4);  %进行拟合，c为2次拟合后的系数
-d = polyval(c, a, 4);  %拟合后，每一个横坐标对应的值即为d
-d(1:3)=b(1:3);d(end-3:end)=b(end-3:end);
-values = spcrv([[a(1) a a(end)];[b(1) b b(end)]],3);
-hold on
-z3path=griddata(a1,a2,-log(max(P,10^-100)),a,b);
-z3path = fillmissing(z3path,'previous');
-%y3path=griddata(a1,a2,-log(max(P,10^-100)),values(1,:),values(2,:));
-if ~sum(isnan(z3path))
-  %  plot3(values(1,:),values(2,:),y3path+5, 'w','LineWidth',2);
-    plot3(a,d,z3path+20, 'w','LineWidth',2);
-   % plot3(y12(1,:),y12(2,:),z3path+5,'w','LineWidth',2);
-end
-  end
-    if (i==4 && j==5)% || (i==1&&j==3)%(i==3&&j==5)|| (i==5&&j==2)
-y12=V'*log2(abs(ycell{i,j}));
-%y12=V'*ycell{i,j};
-
-a=y12(1,:);
-b=y12(2,:);
-hold on
-values = spcrv([[a(1) a a(end)];[b(1) b b(end)]],3);
-c = polyfit(a, b, 4);  %进行拟合，c为2次拟合后的系数
-d = polyval(c, a, 4);  %拟合后，每一个横坐标对应的值即为d
-z3path=griddata(a1,a2,-log(max(P,10^-100)),a,b);
-%y3path=griddata(a1,a2,-log(max(P,10^-100)),values(1,:),values(2,:));
-d(1:5)=b(1:5);d(end-5:end)=b(end-5:end);
-if ~sum(isnan(z3path))
-    %plot3(y12(1,:),y12(2,:),z3path+5,'w','LineWidth',2);
-    %plot3(values(1,:),values(2,:),y3path+5,'Color',[0.85,0.43,0.83],'LineWidth',2);
-        plot3(a,d,z3path+20, 'Color',[0.85,0.43,0.83],'LineWidth',2);
-end
+        if (i==M && j==T)||(i==T&&j==N) ||(i==N&&j==U) %(i==2 && j==1)||(i==5&&j==1) %||(i==4&&j==3) %(i==1 && j==4)||(i==4&&j==2) ||(i==2&&j==3)
+ 
+    y12=V'*log2(abs(ycell{i,j}));
+    a=y12(1,:);b=y12(2,:);
+    c = polyfit(a, b, 4);  %c is the coefficient after fourth-order fitting
+    d = polyval(c, a, 4);  %d is the corresponding value after fitting
+    d(1:3)=b(1:3);d(end-3:end)=b(end-3:end);
+    values = spcrv([[a(1) a a(end)];[b(1) b b(end)]],3);
+    hold on
+    z3path=griddata(a1,a2,-log(max(P,10^-100)),a,b);
+    z3path = fillmissing(z3path,'previous');
+    if ~sum(isnan(z3path))
+        plot3(a,d,z3path+20, 'w','LineWidth',2);
     end
+   if (i==M && j==H)
+    y12=V'*log2(abs(ycell{i,j}));
+    a=y12(1,:);b=y12(2,:);
+    hold on
+    values = spcrv([[a(1) a a(end)];[b(1) b b(end)]],3);
+    c = polyfit(a, b, 4);  %进行拟合，c为2次拟合后的系数
+    d = polyval(c, a, 4);  %拟合后，每一个横坐标对应的值即为d
+    z3path=griddata(a1,a2,-log(max(P,10^-100)),a,b);
+    %y3path=griddata(a1,a2,-log(max(P,10^-100)),values(1,:),values(2,:));
+    d(1:5)=b(1:5);d(end-5:end)=b(end-5:end);
+        if ~sum(isnan(z3path))
+            plot3(a,d,z3path+20, 'Color',[0.85,0.43,0.83],'LineWidth',2);
+        end
+    end
+        end
+    end
+end 
+else
+    len=size(ycell{1,2},2);
+    x1_st=mu_pca(M,1);   x1_ed=mu_pca(T,1);  y1_st=mu_pca(M,2);   y1_ed=mu_pca(T,2);
+    ax1=linspace(x1_st,x1_ed,len);  by1=linspace(y1_st,y1_ed,len);
+    x2_st=mu_pca(T,1);   x2_ed=mu_pca(N,1);  y2_st=mu_pca(T,2);   y2_ed=mu_pca(N,2);
+    ax2=linspace(x2_st,x2_ed,len);  by2=linspace(y2_st,y2_ed,len);
+    x3_st=mu_pca(N,1);   x3_ed=mu_pca(U,1);  y3_st=mu_pca(N,2);   y3_ed=mu_pca(U,2);
+    ax3=linspace(x3_st,x3_ed,len);  by3=linspace(y3_st,y3_ed,len);
+    z3path1=griddata(a1,a2,-log(max(P,10^-100)),ax1,by1);
+    plot3(ax1,by1,z3path1+20, 'w','LineWidth',3);
+    hold on
+    z3path2=griddata(a1,a2,-log(max(P,10^-100)),ax2,by2);
+    plot3(ax2,by2,z3path2+20, 'w','LineWidth',3);
+    hold on
+    z3path3=griddata(a1,a2,-log(max(P,10^-100)),ax3,by3);
+    plot3(ax3,by3,z3path3+20, 'w','LineWidth',3);
+    hold on
  end
-end
-%}
+
 %%
 %PLot_Fig2E, stationary distribution of statble states.
 if param_index<2
@@ -298,34 +265,31 @@ if param_index<2
     legend('boxoff')
     hold on
 else
-iter_nn=30;
-%PP=16-log(action)
-%PP(logical(eye(size(PP))))=0;
-epsilon=1e4;
-PP=exp(-1*action/epsilon)
-PP(logical(eye(size(PP))))=0
-for i=1:size(PP,2)
-PP(i,:)= PP(i,:)./sum(PP(i,:));
-end
-ss=[0,0,0,1,0];
-lis=zeros(5,iter_nn+1);
-lis(:,1)=ss;
-PP=PP./(sum(PP,2))
-
-%PLOT P->others
-figure(3)
-for i=1:iter_nn
-  ss=ss*PP;
-lis(:,i+1)=ss;
-end
-for i=1:5
-plot([0:1:iter_nn],lis(i,:),'linewidth',2)
-hold on
-end
-legend([lab(1),lab(2),lab(3),lab(4),lab(5)])
-
-%legend([strcat(lab(4),'->',lab(1)),strcat(lab(4),'->',lab(4)),strcat(lab(4),'->',lab(3)),strcat(lab(4),'->',lab(2)),strcat(lab(4),'->',lab(5))])
-legend('boxoff')
-hold on
-end
+    iter_nn=30;
+    %PP=16-log(action)
+    %PP(logical(eye(size(PP))))=0;
+    epsilon=1e6;
+    PP=exp(-1*action/epsilon);
+    PP(logical(eye(size(PP))))=0;
+    for i=1:size(PP,2)
+    PP(i,:)= PP(i,:)./sum(PP(i,:));
+    end
+    ss=[0,0,0,1,0];
+    lis=zeros(5,iter_nn+1);
+    lis(:,1)=ss;
+    PP=PP./(sum(PP,2))
+    %PLOT P->others
+    figure(3)
+    for i=1:iter_nn
+    ss=ss*PP;
+    lis(:,i+1)=ss;
+    end
+    for i=1:5
+    plot([0:1:iter_nn],lis(i,:),'linewidth',2)
+    hold on
+    end
+    legend([lab(1),lab(2),lab(3),lab(4),lab(5)])
+    legend('boxoff')
+    hold on
+    end
 %}
