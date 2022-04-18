@@ -1,4 +1,4 @@
-function [xx,sigma,n,ycell,action]=Solver(cycle_index,par,signal,d)
+function [xx,sigma,n,ycell,action]=Solver(cycle_index,extra_conditions,par,signal,d)
 %%cycle_index: the number of random initial conditions to the ODEs to be solved
 %%par: the parameters of the ODE
 %%signal: Signal parameters
@@ -22,10 +22,27 @@ params.ObjGrad=0;
 Num=17;
 %
 %%the dimension od the system
-xx=zeros(cycle_index,Num);
+xx=zeros(cycle_index+size(extra_conditions,1),Num);
 
 %%Solve odes from different initial values
-for i=1:cycle_index
+
+for i=1:size(extra_conditions,1)
+    if mod(i,100)==0
+        i
+    end
+    x0=extra_conditions(i,:);
+    [t,x]=ode23(@(t,x)Melanoma(t,x,par,signal),[0,1000],x0);
+    newx=x(end,:);
+    x=inf*ones(1,Num);
+    while norm( x(end,:)-newx(end,:) ,2 )>1e-7
+        x=newx;
+        [t,newx]=ode23(@(t,x)Melanoma(t,x,par,signal),[0,1],x(end,:));
+    end
+    xx(i,:)=newx(end,:);
+end
+
+
+for i=size(extra_conditions,1)+1:size(extra_conditions,1)+cycle_index
     if mod(i,100)==0
         i
     end
@@ -39,6 +56,10 @@ for i=1:cycle_index
     end
     xx(i,:)=newx(end,:);
 end
+
+
+
+
 %save('xx_5_2','xx');
 %%Finding the stable points
  for q=1:(cycle_index-1)
