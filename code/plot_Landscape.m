@@ -140,7 +140,6 @@ for i=1:index
    %sigma0_pca{i}=V'*(sigma0{i}/(mu(i,:)*mu(i,:)'))*V;
    %sigma0_pca{i}=sig;
 end
-%remake_sig=sigma0_pca{4}*a;
 sigma0_pca{4}=remake_sig;
 sigma0_pca{1}=remake_sig;
 sigma0_pca{3}=remake_sig;
@@ -328,4 +327,5 @@ legend([lab(1),lab(2),lab(3),lab(4),lab(5)])
 %legend([strcat(lab(4),'->',lab(1)),strcat(lab(4),'->',lab(4)),strcat(lab(4),'->',lab(3)),strcat(lab(4),'->',lab(2)),strcat(lab(4),'->',lab(5))])
 legend('boxoff')
 hold on
+end
 %}
