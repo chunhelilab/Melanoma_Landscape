@@ -3,31 +3,29 @@
 %citation:Kang, Xin, and Chunhe Li. 
 %"A Dimension Reduction Approach for Energy Landscape: Identifying Intermediate States in Metabolism‐EMT Network." 
 %Advanced Science 8.10 (2021): 2003133.
-cycle_index=1000;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
+%param_index 1-3 for tetra_landscape, param_index 4-5 for penta_landscape
+cycle_index=0;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
 path='../params/';
-%nst='pentastable_params.csv';
-%nst='Parameter sets.csv';
 nst='Tables.csv';
-%nst='Pentastable_parameter_2022.csv';
-%nst='Parameter sets tet.csv';
-%nst='Tetr_para.csv';
 opts=detectImportOptions(strcat(path,nst))
 preview(strcat(path,nst),opts)
 % The parameters of the ODE
 [ Figure	Number_of_steady_states	Prod_of_AHR	Prod_of_NFIC	Prod_of_FOS	Prod_of_KLF4	Prod_of_FOXF1	Prod_of_JUN	Prod_of_SMAD3	Prod_of_MITF	Prod_of_SMAD4	Prod_of_MAFB	Prod_of_NR3C1	Prod_of_NR2F1	Prod_of_STAT5A	Prod_of_TBX3	Prod_of_TFE3	Prod_of_ETV5	Prod_of_TFAP2A	Deg_of_AHR	Deg_of_NFIC	Deg_of_FOS	Deg_of_KLF4	Deg_of_FOXF1	Deg_of_JUN	Deg_of_SMAD3	Deg_of_MITF	Deg_of_SMAD4	Deg_of_MAFB	Deg_of_NR3C1	Deg_of_NR2F1	Deg_of_STAT5A	Deg_of_TBX3	Deg_of_TFE3	Deg_of_ETV5	Deg_of_TFAP2A	Trd_of_AHRToAHR	Num_of_AHRToAHR	Inh_of_AHRToAHR	Trd_of_NFICToAHR	Num_of_NFICToAHR	Act_of_NFICToAHR	Trd_of_FOSToAHR	Num_of_FOSToAHR	Inh_of_FOSToAHR	Trd_of_NR3C1ToNFIC	Num_of_NR3C1ToNFIC	Act_of_NR3C1ToNFIC	Trd_of_MITFToNFIC	Num_of_MITFToNFIC	Inh_of_MITFToNFIC	Trd_of_AHRToFOS	Num_of_AHRToFOS	Inh_of_AHRToFOS	Trd_of_NR3C1ToFOS	Num_of_NR3C1ToFOS	Inh_of_NR3C1ToFOS	Trd_of_SMAD3ToFOS	Num_of_SMAD3ToFOS	Act_of_SMAD3ToFOS	Trd_of_NFICToFOS	Num_of_NFICToFOS	Inh_of_NFICToFOS	Trd_of_MITFToFOS	Num_of_MITFToFOS	Act_of_MITFToFOS	Trd_of_SMAD4ToFOS	Num_of_SMAD4ToFOS	Act_of_SMAD4ToFOS	Trd_of_FOSToFOS	Num_of_FOSToFOS	Inh_of_FOSToFOS	Trd_of_AHRToKLF4	Num_of_AHRToKLF4	Act_of_AHRToKLF4	Trd_of_JUNToKLF4	Num_of_JUNToKLF4	Act_of_JUNToKLF4	Trd_of_NR3C1ToKLF4	Num_of_NR3C1ToKLF4	Act_of_NR3C1ToKLF4	Trd_of_SMAD3ToKLF4	Num_of_SMAD3ToKLF4	Act_of_SMAD3ToKLF4	Trd_of_TBX3ToKLF4	Num_of_TBX3ToKLF4	Act_of_TBX3ToKLF4	Trd_of_MITFToKLF4	Num_of_MITFToKLF4	Inh_of_MITFToKLF4	Trd_of_KLF4ToFOXF1	Num_of_KLF4ToFOXF1	Act_of_KLF4ToFOXF1	Trd_of_JUNToJUN	Num_of_JUNToJUN	Act_of_JUNToJUN	Trd_of_SMAD3ToJUN	Num_of_SMAD3ToJUN	Act_of_SMAD3ToJUN	Trd_of_KLF4ToJUN	Num_of_KLF4ToJUN	Act_of_KLF4ToJUN	Trd_of_MITFToJUN	Num_of_MITFToJUN	Inh_of_MITFToJUN	Trd_of_SMAD4ToJUN	Num_of_SMAD4ToJUN	Act_of_SMAD4ToJUN	Trd_of_AHRToSMAD3	Num_of_AHRToSMAD3	Act_of_AHRToSMAD3	Trd_of_JUNToSMAD3	Num_of_JUNToSMAD3	Act_of_JUNToSMAD3	Trd_of_NR3C1ToSMAD3	Num_of_NR3C1ToSMAD3	Act_of_NR3C1ToSMAD3	Trd_of_NFICToSMAD3	Num_of_NFICToSMAD3	Act_of_NFICToSMAD3	Trd_of_FOSToSMAD3	Num_of_FOSToSMAD3	Inh_of_FOSToSMAD3	Trd_of_AHRToMITF	Num_of_AHRToMITF	Inh_of_AHRToMITF	Trd_of_JUNToMITF	Num_of_JUNToMITF	Inh_of_JUNToMITF	Trd_of_NR3C1ToMITF	Num_of_NR3C1ToMITF	Act_of_NR3C1ToMITF	Trd_of_SMAD3ToMITF	Num_of_SMAD3ToMITF	Inh_of_SMAD3ToMITF	Trd_of_KLF4ToMITF	Num_of_KLF4ToMITF	Inh_of_KLF4ToMITF	Trd_of_MITFToMITF	Num_of_MITFToMITF	Act_of_MITFToMITF	Trd_of_SMAD4ToMITF	Num_of_SMAD4ToMITF	Act_of_SMAD4ToMITF	Trd_of_NR3C1ToSMAD4	Num_of_NR3C1ToSMAD4	Inh_of_NR3C1ToSMAD4	Trd_of_MAFBToMAFB	Num_of_MAFBToMAFB	Act_of_MAFBToMAFB	Trd_of_NR3C1ToMAFB	Num_of_NR3C1ToMAFB	Act_of_NR3C1ToMAFB	Trd_of_AHRToNR3C1	Num_of_AHRToNR3C1	Act_of_AHRToNR3C1	Trd_of_JUNToNR3C1	Num_of_JUNToNR3C1	Act_of_JUNToNR3C1	Trd_of_SMAD3ToNR3C1	Num_of_SMAD3ToNR3C1	Act_of_SMAD3ToNR3C1	Trd_of_NFICToNR3C1	Num_of_NFICToNR3C1	Act_of_NFICToNR3C1	Trd_of_FOSToNR3C1	Num_of_FOSToNR3C1	Inh_of_FOSToNR3C1	Trd_of_NR3C1ToNR2F1	Num_of_NR3C1ToNR2F1	Act_of_NR3C1ToNR2F1	Trd_of_KLF4ToNR2F1	Num_of_KLF4ToNR2F1	Act_of_KLF4ToNR2F1	Trd_of_NFICToNR2F1	Num_of_NFICToNR2F1	Act_of_NFICToNR2F1	Trd_of_FOSToNR2F1	Num_of_FOSToNR2F1	Inh_of_FOSToNR2F1	Trd_of_STAT5AToSTAT5A	Num_of_STAT5AToSTAT5A	Act_of_STAT5AToSTAT5A	Trd_of_MITFToSTAT5A	Num_of_MITFToSTAT5A	Act_of_MITFToSTAT5A	Trd_of_SMAD3ToTBX3	Num_of_SMAD3ToTBX3	Act_of_SMAD3ToTBX3	Trd_of_TBX3ToTBX3	Num_of_TBX3ToTBX3	Act_of_TBX3ToTBX3	Trd_of_KLF4ToTBX3	Num_of_KLF4ToTBX3	Act_of_KLF4ToTBX3	Trd_of_NFICToTBX3	Num_of_NFICToTBX3	Act_of_NFICToTBX3	Trd_of_JUNToTFE3	Num_of_JUNToTFE3	Act_of_JUNToTFE3	Trd_of_TFE3ToTFE3	Num_of_TFE3ToTFE3	Inh_of_TFE3ToTFE3	Trd_of_NFICToTFE3	Num_of_NFICToTFE3	Act_of_NFICToTFE3	Trd_of_MITFToTFE3	Num_of_MITFToTFE3	Inh_of_MITFToTFE3	Trd_of_FOSToTFE3	Num_of_FOSToTFE3	Inh_of_FOSToTFE3	Trd_of_NR3C1ToETV5	Num_of_NR3C1ToETV5	Inh_of_NR3C1ToETV5	Trd_of_ETV5ToETV5	Num_of_ETV5ToETV5	Act_of_ETV5ToETV5	Trd_of_MITFToETV5	Num_of_MITFToETV5	Act_of_MITFToETV5	Trd_of_NR2F1ToTFAP2A	Num_of_NR2F1ToTFAP2A	Act_of_NR2F1ToTFAP2A	Trd_of_MITFToTFAP2A	Num_of_MITFToTFAP2A	Act_of_MITFToTFAP2A] = readvars(strcat(path,nst));
 par=[Prod_of_AHR	Prod_of_NFIC	Prod_of_FOS	Prod_of_KLF4	Prod_of_FOXF1	Prod_of_JUN	Prod_of_SMAD3	Prod_of_MITF	Prod_of_SMAD4	Prod_of_MAFB	Prod_of_NR3C1	Prod_of_NR2F1	Prod_of_STAT5A	Prod_of_TBX3	Prod_of_TFE3	Prod_of_ETV5	Prod_of_TFAP2A	Deg_of_AHR	Deg_of_NFIC	Deg_of_FOS	Deg_of_KLF4	Deg_of_FOXF1	Deg_of_JUN	Deg_of_SMAD3	Deg_of_MITF	Deg_of_SMAD4	Deg_of_MAFB	Deg_of_NR3C1	Deg_of_NR2F1	Deg_of_STAT5A	Deg_of_TBX3	Deg_of_TFE3	Deg_of_ETV5	Deg_of_TFAP2A	Trd_of_AHRToAHR	Num_of_AHRToAHR	Inh_of_AHRToAHR	Trd_of_NFICToAHR	Num_of_NFICToAHR	Act_of_NFICToAHR	Trd_of_FOSToAHR	Num_of_FOSToAHR	Inh_of_FOSToAHR	Trd_of_NR3C1ToNFIC	Num_of_NR3C1ToNFIC	Act_of_NR3C1ToNFIC	Trd_of_MITFToNFIC	Num_of_MITFToNFIC	Inh_of_MITFToNFIC	Trd_of_AHRToFOS	Num_of_AHRToFOS	Inh_of_AHRToFOS	Trd_of_NR3C1ToFOS	Num_of_NR3C1ToFOS	Inh_of_NR3C1ToFOS	Trd_of_SMAD3ToFOS	Num_of_SMAD3ToFOS	Act_of_SMAD3ToFOS	Trd_of_NFICToFOS	Num_of_NFICToFOS	Inh_of_NFICToFOS	Trd_of_MITFToFOS	Num_of_MITFToFOS	Act_of_MITFToFOS	Trd_of_SMAD4ToFOS	Num_of_SMAD4ToFOS	Act_of_SMAD4ToFOS	Trd_of_FOSToFOS	Num_of_FOSToFOS	Inh_of_FOSToFOS	Trd_of_AHRToKLF4	Num_of_AHRToKLF4	Act_of_AHRToKLF4	Trd_of_JUNToKLF4	Num_of_JUNToKLF4	Act_of_JUNToKLF4	Trd_of_NR3C1ToKLF4	Num_of_NR3C1ToKLF4	Act_of_NR3C1ToKLF4	Trd_of_SMAD3ToKLF4	Num_of_SMAD3ToKLF4	Act_of_SMAD3ToKLF4	Trd_of_TBX3ToKLF4	Num_of_TBX3ToKLF4	Act_of_TBX3ToKLF4	Trd_of_MITFToKLF4	Num_of_MITFToKLF4	Inh_of_MITFToKLF4	Trd_of_KLF4ToFOXF1	Num_of_KLF4ToFOXF1	Act_of_KLF4ToFOXF1	Trd_of_JUNToJUN	Num_of_JUNToJUN	Act_of_JUNToJUN	Trd_of_SMAD3ToJUN	Num_of_SMAD3ToJUN	Act_of_SMAD3ToJUN	Trd_of_KLF4ToJUN	Num_of_KLF4ToJUN	Act_of_KLF4ToJUN	Trd_of_MITFToJUN	Num_of_MITFToJUN	Inh_of_MITFToJUN	Trd_of_SMAD4ToJUN	Num_of_SMAD4ToJUN	Act_of_SMAD4ToJUN	Trd_of_AHRToSMAD3	Num_of_AHRToSMAD3	Act_of_AHRToSMAD3	Trd_of_JUNToSMAD3	Num_of_JUNToSMAD3	Act_of_JUNToSMAD3	Trd_of_NR3C1ToSMAD3	Num_of_NR3C1ToSMAD3	Act_of_NR3C1ToSMAD3	Trd_of_NFICToSMAD3	Num_of_NFICToSMAD3	Act_of_NFICToSMAD3	Trd_of_FOSToSMAD3	Num_of_FOSToSMAD3	Inh_of_FOSToSMAD3	Trd_of_AHRToMITF	Num_of_AHRToMITF	Inh_of_AHRToMITF	Trd_of_JUNToMITF	Num_of_JUNToMITF	Inh_of_JUNToMITF	Trd_of_NR3C1ToMITF	Num_of_NR3C1ToMITF	Act_of_NR3C1ToMITF	Trd_of_SMAD3ToMITF	Num_of_SMAD3ToMITF	Inh_of_SMAD3ToMITF	Trd_of_KLF4ToMITF	Num_of_KLF4ToMITF	Inh_of_KLF4ToMITF	Trd_of_MITFToMITF	Num_of_MITFToMITF	Act_of_MITFToMITF	Trd_of_SMAD4ToMITF	Num_of_SMAD4ToMITF	Act_of_SMAD4ToMITF	Trd_of_NR3C1ToSMAD4	Num_of_NR3C1ToSMAD4	Inh_of_NR3C1ToSMAD4	Trd_of_MAFBToMAFB	Num_of_MAFBToMAFB	Act_of_MAFBToMAFB	Trd_of_NR3C1ToMAFB	Num_of_NR3C1ToMAFB	Act_of_NR3C1ToMAFB	Trd_of_AHRToNR3C1	Num_of_AHRToNR3C1	Act_of_AHRToNR3C1	Trd_of_JUNToNR3C1	Num_of_JUNToNR3C1	Act_of_JUNToNR3C1	Trd_of_SMAD3ToNR3C1	Num_of_SMAD3ToNR3C1	Act_of_SMAD3ToNR3C1	Trd_of_NFICToNR3C1	Num_of_NFICToNR3C1	Act_of_NFICToNR3C1	Trd_of_FOSToNR3C1	Num_of_FOSToNR3C1	Inh_of_FOSToNR3C1	Trd_of_NR3C1ToNR2F1	Num_of_NR3C1ToNR2F1	Act_of_NR3C1ToNR2F1	Trd_of_KLF4ToNR2F1	Num_of_KLF4ToNR2F1	Act_of_KLF4ToNR2F1	Trd_of_NFICToNR2F1	Num_of_NFICToNR2F1	Act_of_NFICToNR2F1	Trd_of_FOSToNR2F1	Num_of_FOSToNR2F1	Inh_of_FOSToNR2F1	Trd_of_STAT5AToSTAT5A	Num_of_STAT5AToSTAT5A	Act_of_STAT5AToSTAT5A	Trd_of_MITFToSTAT5A	Num_of_MITFToSTAT5A	Act_of_MITFToSTAT5A	Trd_of_SMAD3ToTBX3	Num_of_SMAD3ToTBX3	Act_of_SMAD3ToTBX3	Trd_of_TBX3ToTBX3	Num_of_TBX3ToTBX3	Act_of_TBX3ToTBX3	Trd_of_KLF4ToTBX3	Num_of_KLF4ToTBX3	Act_of_KLF4ToTBX3	Trd_of_NFICToTBX3	Num_of_NFICToTBX3	Act_of_NFICToTBX3	Trd_of_JUNToTFE3	Num_of_JUNToTFE3	Act_of_JUNToTFE3	Trd_of_TFE3ToTFE3	Num_of_TFE3ToTFE3	Inh_of_TFE3ToTFE3	Trd_of_NFICToTFE3	Num_of_NFICToTFE3	Act_of_NFICToTFE3	Trd_of_MITFToTFE3	Num_of_MITFToTFE3	Inh_of_MITFToTFE3	Trd_of_FOSToTFE3	Num_of_FOSToTFE3	Inh_of_FOSToTFE3	Trd_of_NR3C1ToETV5	Num_of_NR3C1ToETV5	Inh_of_NR3C1ToETV5	Trd_of_ETV5ToETV5	Num_of_ETV5ToETV5	Act_of_ETV5ToETV5	Trd_of_MITFToETV5	Num_of_MITFToETV5	Act_of_MITFToETV5	Trd_of_NR2F1ToTFAP2A	Num_of_NR2F1ToTFAP2A	Act_of_NR2F1ToTFAP2A	Trd_of_MITFToTFAP2A	Num_of_MITFToTFAP2A	Act_of_MITFToTFAP2A];
+name_ini='initial_conditions.csv';
+[AHR  NFIC	FOS	KLF4	FOXF1	JUN	SMAD3	MITF	SMAD4	MAFB	NR3C1	NR2F1	STAT5A	TBX3	TFE3	ETV5	TFAP2A] = readvars(strcat(path,name_ini));
+extra_conditions=[AHR  NFIC	FOS	KLF4	FOXF1	JUN	SMAD3	MITF	SMAD4	MAFB	NR3C1	NR2F1	STAT5A	TBX3	TFE3	ETV5	TFAP2A];
+size(extra_conditions)
 signal=[3,3,3];  %% Signal
 d=0.1;  %% The diffusion coefficient 
 % The dimension of the system
-global Num;
 Num=17;
 tic() %% Time
 label={'AHR','NFIC','FOS','KLF4','FOXF1','JUN','SMAD3','MITF','SMAD4','MAFB','NR3C1','NR2F1','STAT5A','TBX3','TFE3','ETV5','TFAP2A'};
 %%
-%for ii=9:30
 param_index=1;
 par1=par(param_index,:);
-[xx,sigma,n,ycell,action]=Solver(cycle_index,par1,signal,d);
+[xx,sigma,n,ycell,action]=Solver(cycle_index,extra_conditions,par1,signal,d);
 
 index=size(n,1);  %% The number of the stable states
 alpha=zeros(index,1);  %% The weight of the stable states
@@ -48,15 +46,6 @@ mkdir('../data_save')
 save('../data_save/action','action');
 save('../data_save/ycell','ycell');
 save('../data_save/mu','mu');
-%rs=strcat('action_4_',num2str(param_index))
-%ys=strcat('ycell_4_',num2str(param_index))
-%xs=strcat('xx_4_',num2str(param_index))
-%ms=strcat('mu_4_',num2str(param_index))
-%save(rs,'action');
-%save(ys,'ycell');
-%save(xs,'xx');
-%save(ms,'mu');
-%end
 %% Solve the ODEs, calculate the paths and actions;
 %
 load('../params/PCu.mat')
@@ -85,9 +74,55 @@ for i=1:index
     Sigma=Sigma+alpha(i)*(sigma0{i}+mu(i,:)'*mu(i,:));
 end
 
-%Calculate the eigenvalues and eigenvectors of the covariance
 [V,D] = eigs(Sigma,2);
-V=[PCu(1,:)',PCu(2,:)'];
+ switch param_index
+      case 1
+        lab={'U','N','T','M'};
+        V=[PCu(1,:)',PCu(2,:)'];
+        M=3;T=4;U=2;N=1;ss=[0,0,0,1];
+        p1_max=60;p1_min=-61;p2_max=6;p2_min=-4;
+        remake_sig=[   4.58292918284943  -0.243959748363383;
+                       -0.243959748363383   0.055882886193189];
+        az=117;el=76;
+     
+     case 2
+        lab={'M','T','N','U'};
+        V=[PCu(1,:)',PCu(2,:)'];
+        M=1;T=2;U=4;N=3;ss=[1,0,0,0];
+        p1_max=60;p1_min=-61;p2_max=10;p2_min=-18;
+        remake_sig=[   4.58292918284943  -0.243959748363383;
+                       -0.243959748363383   0.255882886193189];
+        az=117;el=76;
+      case 3
+        lab={'T','U','N','M'};
+        V=[PCu(1,:)',PCu(2,:)'];
+        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        p1_max=60;p1_min=-61;p2_max=5;p2_min=-10;
+        remake_sig=[   4.58292918284943  -0.243959748363383;
+                       -0.243959748363383   0.055882886193189];
+        az=117;el=76;
+        
+        case 4
+        lab={'T','U','N','M','H'};
+        V=[PCu(1,:)',PCu(2,:)'];
+        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        p1_max=2500;p1_min=-800;p2_max=150;p2_min=-48;
+        remake_sig=[   4.58292918284943  -0.243959748363383;
+                       -0.243959748363383   0.055882886193189];
+        az=117;el=76;
+        
+        case 5
+         lab={'U','N','T','M','H'};
+        V=[PCu(1,:)',PCu(2,:)'];
+        M=4;T=1;U=2;N=3;ss=[0,0,0,1];
+        p1_max=60;p1_min=-61;p2_max=5;p2_min=-10;
+        remake_sig=[   4.58292918284943  -0.243959748363383;
+                       -0.243959748363383   0.055882886193189];
+        az=117;el=76;
+ end
+
+
+%Calculate the eigenvalues and eigenvectors of the covariance
 if sign(V(:,1)'*[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]')<0
     V(:,1)=-V(:,1);
 end
@@ -102,19 +137,19 @@ for i=1:index
    mu_pca(i,:)=V'*log2(mu(i,:)');
    %sigma0_pca{i}=sigma0{i}/(mu(i,:)'*mu(i,:));
 
-   sigma0_pca{i}=V'*(sigma0{i}/(mu(i,:)*mu(i,:)'))*V;
+   %sigma0_pca{i}=V'*(sigma0{i}/(mu(i,:)*mu(i,:)'))*V;
    %sigma0_pca{i}=sig;
 end
-a=4000;
 %remake_sig=sigma0_pca{4}*a;
-remake_sig=[
-   6.58292918284943  -0.443959748363383;
-  -0.443959748363383   0.155882886193189];
 sigma0_pca{4}=remake_sig;
 sigma0_pca{1}=remake_sig;
 sigma0_pca{3}=remake_sig;
 sigma0_pca{2}=remake_sig;
+if param_index>3
+    sigma0_pca{5}=remake_sig;
+end
 
+%{
 p1_max=60;
 p1_min=-61;
 p2_max=10;
@@ -163,18 +198,20 @@ xlabel('PC1')
 ylabel('PC2')
 zlabel('U')
 axis([p1_min p1_max p2_min p2_max 0 250])
-
+view([az,el])
 for i=1:size(n,1)
     A(i)=floor((mu_pca(i,1)-y_min(1))/step(1))+1;
     B(i)=floor((mu_pca(i,2)-y_min(2))/step(2))+1;
 end
  hold on
+ 
+
  %lab={'U','N','T','P','H'};
  %lab={'U','N','T','M'};
 %lab={'T','P','H'};
-lab={'N','U','M','T'};%xx_4_2
 % lab={'N','U','M','T'}%xx_4_7
 %lab={'U','N','T','M'}%xx_4_18
+%lab={'N','U','M','T'};%xx_4_2
 
 %{
 %Plot the grid
@@ -190,7 +227,7 @@ end
 k=size(ycell);
 for i=1:k(2)
     for j=1:k(2)
-  if (i==4 && j==3)||(i==3&&j==2) ||(i==2&&j==1) %(i==2 && j==1)||(i==5&&j==1) %||(i==4&&j==3) %(i==1 && j==4)||(i==4&&j==2) ||(i==2&&j==3)
+  if (i==M && j==T)||(i==T&&j==N) ||(i==N&&j==U) %(i==2 && j==1)||(i==5&&j==1) %||(i==4&&j==3) %(i==1 && j==4)||(i==4&&j==2) ||(i==2&&j==3)
 
 y12=V'*log2(abs(ycell{i,j}));
 %y12=V'*ycell{i,j};
@@ -234,40 +271,34 @@ end
 %}
 %%
 %PLot_Fig2E, stationary distribution of statble states.
-%
-PP=[];
-lab={'N','U','M','T'};%xx_4_2
-iter_nn=30;
-epsilon=1e6;
-PP=exp(-1*action/epsilon)
-PP(logical(eye(size(PP))))=0
-for i=1:size(PP,2)
-PP(i,:)= PP(i,:)./sum(PP(i,:));
-end
-PP
+if param_index<2
+    PP=[];
+    iter_nn=30;
+    epsilon=1e6;
+    PP=exp(-1*action/epsilon);
+    PP(logical(eye(size(PP))))=0;
+    for i=1:size(PP,2)
+    PP(i,:)= PP(i,:)./sum(PP(i,:));
+    end
+    PP
 %PP(logical(eye(size(PP))))=-sum(PP,2)
-ss=[0,0,1,0];
-lis=zeros(4,iter_nn+1);
-lis(:,1)=ss;
+    lis=zeros(4,iter_nn+1);
+    lis(:,1)=ss;
 
-%PLOT P->others
-figure(3)
-for i=1:iter_nn
-  ss=ss*PP;
-lis(:,i+1)=ss;
-end
-for i=1:4
-plot([0:1:iter_nn],lis(i,:),'linewidth',2)
-hold on
-end
-%legend([strcat(lab(3),'->',lab(1)),strcat(lab(3),'->',lab(2)),strcat(lab(3),'->',lab(3)),strcat(lab(3),'->',lab(4))])
-legend([lab(2),lab(1),lab(3),lab(4)])
-
-legend('boxoff')
-hold on
-%}
-%{
- lab={'U','N','T','M','H'};
+    %PLOT P->others
+    figure(3)
+    for i=1:iter_nn
+     ss=ss*PP;
+    lis(:,i+1)=ss;
+    end
+    for i=1:4
+    plot([0:1:iter_nn],lis(i,:),'linewidth',2)
+    hold on
+    end
+    legend([lab(2),lab(1),lab(3),lab(4)])
+    legend('boxoff')
+    hold on
+else
 iter_nn=30;
 %PP=16-log(action)
 %PP(logical(eye(size(PP))))=0;
