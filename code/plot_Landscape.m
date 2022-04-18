@@ -237,7 +237,7 @@ else
 
 %%
 %PLot_Fig2E, stationary distribution of statble states.
-if param_index<2
+if param_index<4
     PP=[];
     iter_nn=30;
     epsilon=1e6;
