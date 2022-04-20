@@ -3,7 +3,7 @@
 %citation:Kang, Xin, and Chunhe Li. 
 %"A Dimension Reduction Approach for Energy Landscape: Identifying Intermediate States in Metabolism‐EMT Network." 
 %Advanced Science 8.10 (2021): 2003133.
-param_index=2;%param_index 1-3 for tetra_landscape, param_index 4-5 for penta_landscape
+param_index=1;%param_index 1-3 for tetra_landscape, param_index 4-5 for penta_landscape
 cycle_index=0;  %% The number of random initial conditions to the ODEs to be solved, recommend more than 3000;
 path='../params/';
 nst='Tables.csv';
@@ -82,12 +82,12 @@ end
 
  switch param_index
       case 1
-        lab={'U','N','T','M'};
+        lab={'M','T','U','N'};
         V=[PCu(1,:)',PCu(2,:)'];
-        M=1;T=2;U=3;N=4;H=0;ss=[0,0,0,1];sim=0;
-        p1_max=60;p1_min=-61;p2_max=6;p2_min=-4;
-        remake_sig=[   2.58292918284943  0.043959748363383;
-                       -0.043959748363383   0.025882886193189];
+        M=1;T=2;U=3;N=4;H=0;ss=[1,0,0,0];sim=0;
+        p1_max=60;p1_min=-61;p2_max=8;p2_min=-6;
+        remake_sig=[   2.78292918284943  0.043959748363383;
+                       -0.043959748363383   0.095882886193189];
         az=48;el=74;
      
      case 2
